@@ -37,7 +37,6 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         System.out.println("paint called x=" + x + "y=" + y);
         g.fillRect(x, y, 50, 50);
-        x += 10;
 //        y += 10;
     }
 
@@ -61,7 +60,7 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            //repaint();
+            repaint();
         }
 
         @Override
