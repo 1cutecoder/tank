@@ -9,10 +9,12 @@ import java.awt.event.WindowEvent;
  * @date 2021/12/13 14:13
  */
 public class TankFrame extends Frame {
+    int x = 200, y = 200;
+
     public TankFrame() {
         setSize(800, 600);
         setResizable(false);
-        setTitle("Tank War 1");
+        setTitle("Tank War ");
         setVisible(true);
         addWindowListener(new WindowAdapter() {
             /**
@@ -30,7 +32,9 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("paint called");
-        g.fillRect(200, 200, 50, 50);
+        System.out.println("paint called x=" + x +"y=" + y);
+        g.fillRect(x, y, 50, 50);
+        x += 10;
+        y += 10;
     }
 }
