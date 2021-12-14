@@ -12,6 +12,7 @@ import java.awt.event.WindowEvent;
  */
 public class TankFrame extends Frame {
     Tank myTank = new Tank(200, 200, Dir.DOWN);
+    Bullet bullet = new Bullet(300, 300, Dir.DOWN);
 
     public TankFrame() {
         setSize(800, 600);
@@ -37,6 +38,7 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         System.out.println("paint called x=" + myTank.getX() + "y=" + myTank.getY());
         myTank.paint(g);
+        bullet.paint(g);
 //        y += 10;
     }
 
@@ -93,7 +95,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            if (!bL && !bu && !bR && !bD){
+            if (!bL && !bu && !bR && !bD) {
                 myTank.setMoving(false);
             } else {
                 myTank.setMoving(true);
