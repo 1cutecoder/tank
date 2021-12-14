@@ -1,5 +1,8 @@
 package tank;
 
+import java.awt.*;
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author zcl
  * @date 2021/12/13 14:25
@@ -7,6 +10,10 @@ package tank;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
+        while (true) {
+            try {TimeUnit.MILLISECONDS.sleep(100);} catch (InterruptedException e) {e.printStackTrace();}
+            tankFrame.repaint();
+        }
     }
 
 }

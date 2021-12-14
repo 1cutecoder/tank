@@ -11,7 +11,9 @@ import java.awt.event.WindowEvent;
  * @date 2021/12/13 14:13
  */
 public class TankFrame extends Frame {
-    int x = 200, y = 200;
+    private int x = 200, y = 200;
+    private final int SPEED = 10;
+    Dir dir = Dir.DOWN;
 
     public TankFrame() {
         setSize(800, 600);
@@ -37,6 +39,22 @@ public class TankFrame extends Frame {
     public void paint(Graphics g) {
         System.out.println("paint called x=" + x + "y=" + y);
         g.fillRect(x, y, 50, 50);
+        switch (dir) {
+            case LEFT:
+                x -= SPEED;
+                break;
+            case UP:
+                y -= SPEED;
+                break;
+            case RIGHT:
+                x += SPEED;
+                break;
+            case DOWN:
+                y += SPEED;
+                break;
+            default:
+                break;
+        }
 //        y += 10;
     }
 
@@ -45,6 +63,7 @@ public class TankFrame extends Frame {
         boolean bu = false;
         boolean bR = false;
         boolean bD = false;
+
         @Override
         public void keyPressed(KeyEvent e) {
             int keyCode = e.getKeyCode();
@@ -53,7 +72,7 @@ public class TankFrame extends Frame {
                     bL = true;
                     break;
                 case KeyEvent.VK_UP:
-                    bu =true;
+                    bu = true;
                     break;
                 case KeyEvent.VK_RIGHT:
                     bR = true;
@@ -64,8 +83,9 @@ public class TankFrame extends Frame {
                 default:
                     break;
             }
-            repaint();
+            setMainTankDir();
         }
+
 
         @Override
         public void keyReleased(KeyEvent e) {
@@ -76,7 +96,7 @@ public class TankFrame extends Frame {
                     bL = false;
                     break;
                 case KeyEvent.VK_UP:
-                    bu =false;
+                    bu = false;
                     break;
                 case KeyEvent.VK_RIGHT:
                     bR = false;
@@ -86,6 +106,22 @@ public class TankFrame extends Frame {
                     break;
                 default:
                     break;
+            }
+            setMainTankDir();
+        }
+
+        private void setMainTankDir() {
+            if (bL) {
+                dir = Dir.LEFT;
+            }
+            if (bu) {
+                dir = Dir.UP;
+            }
+            if (bR) {
+                dir = Dir.RIGHT;
+            }
+            if (bD) {
+                dir = Dir.DOWN;
             }
         }
     }
