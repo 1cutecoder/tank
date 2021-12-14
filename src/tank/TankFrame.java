@@ -36,7 +36,7 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        System.out.println("paint called x=" + myTank.getX() + "y=" + myTank.getY());
+        System.out.println("paint called x=" + myTank.getX() + "   y=" + myTank.getY());
         myTank.paint(g);
         bullet.paint(g);
 //        y += 10;
