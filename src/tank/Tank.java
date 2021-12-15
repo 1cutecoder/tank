@@ -7,13 +7,14 @@ import java.awt.*;
  * @date 2021/12/14 14:02
  */
 public class Tank {
-    private int x,y;
+    private int x, y;
     private Dir dir = Dir.DOWN;
     private final int SPEED = 5;
     private boolean moving = false;
     private TankFrame tf = null;
+    static int width = 50, height = 50;
 
-    public Tank(int x, int y, Dir dir,TankFrame tf) {
+    public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -59,7 +60,7 @@ public class Tank {
     public void paint(Graphics g) {
         Color color = g.getColor();
         g.setColor(Color.YELLOW);
-        g.fillRect(x, y, 50, 50);
+        g.fillRect(x, y, width, height);
         g.setColor(color);
         move();
     }
@@ -87,6 +88,6 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir,this.tf));
+        tf.bullets.add(new Bullet(this.x + width/2 - Bullet.width / 2, this.y + height/2 - Bullet.height / 2, this.dir, this.tf));
     }
 }
