@@ -12,7 +12,7 @@ public class Tank {
     private final int SPEED = 5;
     private boolean moving = false;
     private TankFrame tf = null;
-    
+
     public Tank(int x, int y, Dir dir,TankFrame tf) {
         this.x = x;
         this.y = y;
@@ -87,6 +87,6 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullet = new Bullet(this.x, this.y, this.dir);
+        tf.bullets.add(new Bullet(this.x, this.y, this.dir,this.tf));
     }
 }
