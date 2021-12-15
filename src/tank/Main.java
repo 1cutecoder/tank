@@ -11,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws InterruptedException {
         TankFrame tankFrame = new TankFrame();
         while (true) {
-            try {TimeUnit.MILLISECONDS.sleep(100);} catch (InterruptedException e) {e.printStackTrace();}
+            try {TimeUnit.MILLISECONDS.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
             tankFrame.repaint();
         }
     }
