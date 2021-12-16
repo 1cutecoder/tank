@@ -9,7 +9,8 @@ import java.awt.*;
 public class Bullet {
     private final int SPEED = 5;
     private int x, y;
-    static int width = 30, height = 30;
+    public static int WIDTH = ResourceMgr.bulletD.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletD.getHeight();
     private Dir dir;
     private boolean live = true;
     private TankFrame tf = null;
@@ -65,5 +66,4 @@ public class Bullet {
             live = false;
         }
     }
-
 }

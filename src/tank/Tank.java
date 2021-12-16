@@ -12,7 +12,8 @@ public class Tank {
     private final int SPEED = 5;
     private boolean moving = false;
     private TankFrame tf = null;
-    static int width = 50, height = 50;
+    public static int WIDTH = ResourceMgr.tankL.getWidth();
+    public static int HEIGHT = ResourceMgr.tankL.getHeight();
 
     public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
@@ -77,6 +78,37 @@ public class Tank {
         move();
     }
 
+    public void resetWidthAndHeight() {
+        switch (dir) {
+            case LEFT:
+                WIDTH = ResourceMgr.tankL.getWidth();
+                HEIGHT = ResourceMgr.tankL.getHeight();
+                Bullet.WIDTH = ResourceMgr.bulletL.getWidth();
+                Bullet.HEIGHT = ResourceMgr.bulletL.getHeight();
+                break;
+            case UP:
+                WIDTH = ResourceMgr.tankU.getWidth();
+                HEIGHT = ResourceMgr.tankU.getHeight();
+                Bullet.WIDTH = ResourceMgr.bulletU.getWidth();
+                Bullet.HEIGHT = ResourceMgr.bulletU.getHeight();
+                break;
+            case RIGHT:
+                WIDTH = ResourceMgr.tankR.getWidth();
+                HEIGHT = ResourceMgr.tankR.getHeight();
+                Bullet.WIDTH = ResourceMgr.bulletR.getWidth();
+                Bullet.HEIGHT = ResourceMgr.bulletR.getHeight();
+                break;
+            case DOWN:
+                WIDTH = ResourceMgr.tankD.getWidth();
+                HEIGHT = ResourceMgr.tankD.getHeight();
+                Bullet.WIDTH = ResourceMgr.bulletD.getWidth();
+                Bullet.HEIGHT = ResourceMgr.bulletD.getHeight();
+                break;
+            default:
+                break;
+        }
+    }
+
     private void move() {
         if (!moving) {
             return;
@@ -100,6 +132,9 @@ public class Tank {
     }
 
     public void fire() {
-        tf.bullets.add(new Bullet(this.x, this.y, this.dir, this.tf));
+        resetWidthAndHeight();
+        int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        tf.bullets.add(new Bullet(bx, by, this.dir, this.tf));
     }
 }
