@@ -13,10 +13,10 @@ import java.util.List;
  * @date 2021/12/13 14:13
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(200, 400, Dir.DOWN,this);
+    Tank myTank = new Tank(200, 400, Dir.DOWN, this);
     List<Bullet> bullets = new ArrayList<>();
     List<Tank> tanks = new ArrayList<>();
-    static final  int GAME_WIDTH = 800, GAME_HEIGHT = 600;
+    static final int GAME_WIDTH = 800, GAME_HEIGHT = 600;
 
     public TankFrame() {
         setSize(GAME_WIDTH, GAME_HEIGHT);
@@ -37,26 +37,28 @@ public class TankFrame extends Frame {
         });
         this.addKeyListener(new MyKeyListener());
     }
+
     Image offScreenImage = null;
+
     @Override
     public void update(Graphics g) {
         if (offScreenImage == null) {
-            offScreenImage = this.createImage(GAME_WIDTH,GAME_HEIGHT);
+            offScreenImage = this.createImage(GAME_WIDTH, GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
         gOffScreen.setColor(Color.BLACK);
-        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_HEIGHT);
+        gOffScreen.fillRect(0, 0, GAME_WIDTH, GAME_HEIGHT);
         gOffScreen.setColor(c);
         paint(gOffScreen);
-        g.drawImage(offScreenImage,0,0,null);
+        g.drawImage(offScreenImage, 0, 0, null);
     }
 
     @Override
     public void paint(Graphics g) {
         Color c = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("子弹的数量：" + bullets.size(),10,60);
+        g.drawString("子弹的数量：" + bullets.size(), 10, 60);
         g.setColor(c);
         myTank.paint(g);
         for (int i = 0; i < bullets.size(); i++) {
@@ -113,7 +115,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                     myTank.fire();
+                    myTank.fire();
                     break;
                 default:
                     break;
