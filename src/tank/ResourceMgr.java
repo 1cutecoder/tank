@@ -10,6 +10,7 @@ import java.io.IOException;
  */
 public class ResourceMgr {
     public static BufferedImage tankL, tankU, tankR, tankD;
+
     public static BufferedImage bulletL, bulletU, bulletR, bulletD;
 
     static {
