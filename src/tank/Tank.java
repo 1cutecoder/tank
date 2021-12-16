@@ -14,6 +14,7 @@ public class Tank {
     private TankFrame tf = null;
     public static int WIDTH = ResourceMgr.tankL.getWidth();
     public static int HEIGHT = ResourceMgr.tankL.getHeight();
+    private boolean living = true;
 
     public Tank(int x, int y, Dir dir, TankFrame tf) {
         this.x = x;
@@ -59,6 +60,10 @@ public class Tank {
     }
 
     public void paint(Graphics g) {
+        if (!living) {
+            tf.tanks.remove(this);
+            return;
+        }
         switch (dir) {
             case LEFT:
                 g.drawImage(ResourceMgr.tankL, x, y, null);
@@ -136,5 +141,9 @@ public class Tank {
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         tf.bullets.add(new Bullet(bx, by, this.dir, this.tf));
+    }
+
+    public void die() {
+        this.living = false;
     }
 }
