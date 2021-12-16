@@ -9,10 +9,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        TankFrame tankFrame = new TankFrame();
+        TankFrame tf = new TankFrame();
+        //初始化敌方坦克
+        for (int i = 0; i < 5; i++) {
+            tf.tanks.add(new Tank(50 + i * 80,200,Dir.DOWN,tf));
+        }
         while (true) {
             try {TimeUnit.MILLISECONDS.sleep(50);} catch (InterruptedException e) {e.printStackTrace();}
-            tankFrame.repaint();
+            tf.repaint();
         }
     }
 
