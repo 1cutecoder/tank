@@ -1,26 +1,34 @@
 package tank;
 
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author zcl
  * @date 2021/12/14 14:02
  */
 public class Tank {
+    public static int WIDTH = ResourceMgr.tankL.getWidth();
+    public static int HEIGHT = ResourceMgr.tankL.getHeight();
+    private Random random = new Random();
     private int x, y;
     private Dir dir = Dir.DOWN;
     private final int SPEED = 5;
-    private boolean moving = false;
+    private boolean moving = true;
     private TankFrame tf = null;
-    public static int WIDTH = ResourceMgr.tankL.getWidth();
-    public static int HEIGHT = ResourceMgr.tankL.getHeight();
     private boolean living = true;
+    private Group group = Group.BAD;
 
-    public Tank(int x, int y, Dir dir, TankFrame tf) {
+    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tf = tf;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public void setMoving(boolean moving) {
@@ -41,6 +49,10 @@ public class Tank {
 
     public boolean isMoving() {
         return moving;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     public int getX() {
@@ -134,13 +146,16 @@ public class Tank {
             default:
                 break;
         }
+        if (random.nextInt(10) > 8) {
+            this.fire();
+        }
     }
 
     public void fire() {
         resetWidthAndHeight();
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bx, by, this.dir, this.tf));
+        tf.bullets.add(new Bullet(bx, by, this.dir,group, this.tf));
     }
 
     public void die() {
