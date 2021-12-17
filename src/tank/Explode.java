@@ -2,6 +2,7 @@ package tank;
 
 import java.awt.*;
 import java.util.Random;
+import java.util.concurrent.ThreadPoolExecutor;
 
 /**
  * @author zcl
@@ -19,6 +20,13 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+
+        new Thread(() -> {
+            Audio audio = new Audio("audio/explode.wav");
+            audio.play();
+            audio.close();
+        }, "a").start();
+
     }
 
     public void paint(Graphics g) {
