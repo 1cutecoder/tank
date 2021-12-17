@@ -146,7 +146,10 @@ public class Tank {
             default:
                 break;
         }
-        if (random.nextInt(10) > 8) {
+        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
+            if (Group.BAD.equals(this.group)) living = false;
+        }
+        if (Group.BAD.equals(this.group) && random.nextInt(10) > 8) {
             this.fire();
         }
     }
@@ -155,7 +158,7 @@ public class Tank {
         resetWidthAndHeight();
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bx, by, this.dir,group, this.tf));
+        tf.bullets.add(new Bullet(bx, by, this.dir, group, this.tf));
     }
 
     public void die() {
