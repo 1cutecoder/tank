@@ -74,6 +74,7 @@ public class Tank {
     public void paint(Graphics g) {
         if (!living) {
             tf.tanks.remove(this);
+            tf.explodes.add(new Explode(this.x,this.y,tf));
             return;
         }
         switch (dir) {
@@ -147,7 +148,13 @@ public class Tank {
                 break;
         }
         if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-            if (Group.BAD.equals(this.group)) living = false;
+            switch (this.group){
+                case BAD:
+                    living = false;
+                    break;
+                default:
+                    break;
+            }
         }
         if (Group.BAD.equals(this.group) && random.nextInt(10) > 8) {
             this.fire();
