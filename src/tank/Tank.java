@@ -74,7 +74,6 @@ public class Tank {
     public void paint(Graphics g) {
         if (!living) {
             tf.tanks.remove(this);
-            tf.explodes.add(new Explode(this.x, this.y, tf));
             return;
         }
         switch (dir) {
