@@ -11,6 +11,7 @@ import java.util.Random;
 public class Tank {
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
+    public Rectangle rect = new Rectangle();
     private Random random = new Random();
     private int x, y;
     private Dir dir = Dir.DOWN;
@@ -26,6 +27,10 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tf = tf;
+        rect.x = this.x;
+        rect.y = this.y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     public void setGroup(Group group) {
@@ -166,7 +171,8 @@ public class Tank {
                 audio.close();
             }, "b").start();
         }
-
+        rect.x = this.x;
+        rect.y = this.y;
     }
 
     private void boundsCheck() {
