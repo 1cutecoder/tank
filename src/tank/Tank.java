@@ -152,6 +152,24 @@ public class Tank {
                 break;
         }
         resetWidthAndHeight();
+        boundsCheck();
+        if (Group.BAD.equals(this.group) && random.nextInt(100) > 95) {
+            this.fire();
+        }
+        if (Group.BAD.equals(this.group) && random.nextInt(100) > 95) {
+            randomDir();
+        }
+        if (Group.GOOD.equals(this.group)) {
+            new Thread(() -> {
+                Audio audio = new Audio("audio/tank_move.wav");
+                audio.play();
+                audio.close();
+            }, "b").start();
+        }
+
+    }
+
+    private void boundsCheck() {
         if (x < 0) {
             x = 0;
         }
@@ -163,12 +181,6 @@ public class Tank {
         }
         if ((y + HEIGHT) > TankFrame.GAME_HEIGHT) {
             y = TankFrame.GAME_HEIGHT - HEIGHT;
-        }
-        if (Group.BAD.equals(this.group) && random.nextInt(100) > 95) {
-            this.fire();
-        }
-        if (Group.BAD.equals(this.group) && random.nextInt(100) > 95) {
-            randomDir();
         }
     }
 
