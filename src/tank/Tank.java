@@ -74,7 +74,7 @@ public class Tank {
     public void paint(Graphics g) {
         if (!living) {
             tf.tanks.remove(this);
-            tf.explodes.add(new Explode(this.x,this.y,tf));
+            tf.explodes.add(new Explode(this.x, this.y, tf));
             return;
         }
         switch (dir) {
@@ -147,17 +147,42 @@ public class Tank {
             default:
                 break;
         }
-        if (x < 0 || y < 0 || x > TankFrame.GAME_WIDTH || y > TankFrame.GAME_HEIGHT) {
-            switch (this.group){
-                case BAD:
-                    living = false;
-                    break;
-                default:
-                    break;
-            }
+        resetWidthAndHeight();
+        if (x < 0) {
+            x = 0;
+        }
+        if (y < HEIGHT / 2) {
+            y = HEIGHT / 2;
+        }
+        if ((x + WIDTH) > TankFrame.GAME_WIDTH) {
+            x = TankFrame.GAME_WIDTH - WIDTH;
+        }
+        if ((y + HEIGHT) > TankFrame.GAME_HEIGHT) {
+            y = TankFrame.GAME_HEIGHT - HEIGHT;
         }
         if (Group.BAD.equals(this.group) && random.nextInt(10) > 8) {
             this.fire();
+            changeDir();
+        }
+    }
+
+    private void changeDir() {
+        int i = random.nextInt(4);
+        switch (i) {
+            case 0:
+                this.dir = Dir.LEFT;
+                break;
+            case 1:
+                this.dir = Dir.UP;
+                break;
+            case 2:
+                this.dir = Dir.RIGHT;
+                break;
+            case 3:
+                this.dir = Dir.DOWN;
+                break;
+            default:
+                break;
         }
     }
 

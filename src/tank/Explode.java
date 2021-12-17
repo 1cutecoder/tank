@@ -20,7 +20,6 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
-
         new Thread(() -> {
             Audio audio = new Audio("audio/explode.wav");
             audio.play();
