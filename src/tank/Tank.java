@@ -1,6 +1,7 @@
 package tank;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
@@ -8,8 +9,8 @@ import java.util.Random;
  * @date 2021/12/14 14:02
  */
 public class Tank {
-    public static int WIDTH = ResourceMgr.tankL.getWidth();
-    public static int HEIGHT = ResourceMgr.tankL.getHeight();
+    public static int WIDTH = ResourceMgr.goodTankU.getWidth();
+    public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     private Random random = new Random();
     private int x, y;
     private Dir dir = Dir.DOWN;
@@ -78,16 +79,16 @@ public class Tank {
         }
         switch (dir) {
             case LEFT:
-                g.drawImage(ResourceMgr.tankL, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL, x, y, null);
                 break;
             case UP:
-                g.drawImage(ResourceMgr.tankU, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU, x, y, null);
                 break;
             case RIGHT:
-                g.drawImage(ResourceMgr.tankR, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR, x, y, null);
                 break;
             case DOWN:
-                g.drawImage(ResourceMgr.tankD, x, y, null);
+                g.drawImage(this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD, x, y, null);
                 break;
             default:
                 break;
@@ -98,26 +99,30 @@ public class Tank {
     public void resetWidthAndHeight() {
         switch (dir) {
             case LEFT:
-                WIDTH = ResourceMgr.tankL.getWidth();
-                HEIGHT = ResourceMgr.tankL.getHeight();
+                BufferedImage bufferedImageL = this.group == Group.GOOD ? ResourceMgr.goodTankL : ResourceMgr.badTankL;
+                WIDTH = bufferedImageL.getWidth();
+                HEIGHT = bufferedImageL.getHeight();
                 Bullet.WIDTH = ResourceMgr.bulletL.getWidth();
                 Bullet.HEIGHT = ResourceMgr.bulletL.getHeight();
                 break;
             case UP:
-                WIDTH = ResourceMgr.tankU.getWidth();
-                HEIGHT = ResourceMgr.tankU.getHeight();
+                BufferedImage bufferedImageU = this.group == Group.GOOD ? ResourceMgr.goodTankU : ResourceMgr.badTankU;
+                WIDTH = bufferedImageU.getWidth();
+                HEIGHT = bufferedImageU.getHeight();
                 Bullet.WIDTH = ResourceMgr.bulletU.getWidth();
                 Bullet.HEIGHT = ResourceMgr.bulletU.getHeight();
                 break;
             case RIGHT:
-                WIDTH = ResourceMgr.tankR.getWidth();
-                HEIGHT = ResourceMgr.tankR.getHeight();
+                BufferedImage bufferedImagerR = this.group == Group.GOOD ? ResourceMgr.goodTankR : ResourceMgr.badTankR;
+                WIDTH = bufferedImagerR.getWidth();
+                HEIGHT = bufferedImagerR.getHeight();
                 Bullet.WIDTH = ResourceMgr.bulletR.getWidth();
                 Bullet.HEIGHT = ResourceMgr.bulletR.getHeight();
                 break;
             case DOWN:
-                WIDTH = ResourceMgr.tankD.getWidth();
-                HEIGHT = ResourceMgr.tankD.getHeight();
+                BufferedImage bufferedImagerD = this.group == Group.GOOD ? ResourceMgr.goodTankD : ResourceMgr.badTankD;
+                WIDTH = bufferedImagerD.getWidth();
+                HEIGHT = bufferedImagerD.getHeight();
                 Bullet.WIDTH = ResourceMgr.bulletD.getWidth();
                 Bullet.HEIGHT = ResourceMgr.bulletD.getHeight();
                 break;
