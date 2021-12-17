@@ -13,7 +13,6 @@ public class Explode {
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
     private int x, y;
     private TankFrame tf = null;
-    private boolean living = true;
     private int step = 0;
 
     public Explode(int x, int y, TankFrame tf) {
