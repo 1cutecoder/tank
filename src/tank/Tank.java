@@ -160,30 +160,17 @@ public class Tank {
         if ((y + HEIGHT) > TankFrame.GAME_HEIGHT) {
             y = TankFrame.GAME_HEIGHT - HEIGHT;
         }
-        if (Group.BAD.equals(this.group) && random.nextInt(10) > 8) {
+        if (Group.BAD.equals(this.group) && random.nextInt(100) > 95) {
             this.fire();
-            changeDir();
+        }
+        if (Group.BAD.equals(this.group) && random.nextInt(100) > 95) {
+            randomDir();
         }
     }
 
-    private void changeDir() {
-        int i = random.nextInt(4);
-        switch (i) {
-            case 0:
-                this.dir = Dir.LEFT;
-                break;
-            case 1:
-                this.dir = Dir.UP;
-                break;
-            case 2:
-                this.dir = Dir.RIGHT;
-                break;
-            case 3:
-                this.dir = Dir.DOWN;
-                break;
-            default:
-                break;
-        }
+    private void randomDir() {
+        Dir[] dirs = Dir.values();
+        this.dir = dirs[random.nextInt(4)];
     }
 
     public void fire() {
