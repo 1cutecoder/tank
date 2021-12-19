@@ -14,12 +14,12 @@ import tank.Tank;
  */
 public class BulletTankCollider implements Collider {
     @Override
-    public void collide(GameObject o1, GameObject o2) {
+    public boolean collide(GameObject o1, GameObject o2) {
         if (o1 instanceof Bullet && o2 instanceof Tank) {
             Bullet b = (Bullet)o1;
             Tank t = (Tank)o2;
             if (b.group == t.group) {
-                return;
+                return true;
             }
             // 用一个rect来记录子弹的位置
             if (b.rect.intersects(t.rect)) {
@@ -29,10 +29,12 @@ public class BulletTankCollider implements Collider {
                 int eY = t.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
                 b.gm.add(new Explode(eX, eY, b.gm));
             }
+            return true;
         } else if (o2 instanceof Bullet && o1 instanceof Tank){
             collide(o2,o1);
+            return true;
         } else {
-            return;
+            return false;
         }
 
     }

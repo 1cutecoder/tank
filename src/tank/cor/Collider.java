@@ -15,5 +15,5 @@ public interface Collider {
      * @param o1
      * @param o2
      */
-    void collide(GameObject o1,GameObject o2);
+    boolean collide(GameObject o1,GameObject o2);
 }

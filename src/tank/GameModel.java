@@ -2,6 +2,7 @@ package tank;
 
 import tank.cor.BulletTankCollider;
 import tank.cor.Collider;
+import tank.cor.ColliderChain;
 import tank.cor.TankTankCollider;
 
 import java.awt.*;
@@ -18,8 +19,7 @@ import java.util.List;
 public class GameModel {
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
     private List<GameObject> objects = new ArrayList<>();
-    private Collider collider = new BulletTankCollider();
-    private Collider ttCollider = new TankTankCollider();
+    private ColliderChain chain = new ColliderChain();
     public GameModel() {
         int initTankCount = PropertyMgr.getInt("initTankCount");
         //初始化敌方坦克
@@ -52,8 +52,7 @@ public class GameModel {
             for (int j = i + 1; j < objects.size(); j++) {
                 GameObject o1 = objects.get(i);
                 GameObject o2 = objects.get(j);
-                collider.collide(o1,o2);
-                ttCollider.collide(o1,o2);
+                chain.collide(o1,o2);
             }
         }
     }
