@@ -21,7 +21,9 @@ public class Tank {
     private boolean moving = true;
     private boolean living = true;
     public Group group = Group.BAD;
+    public FireStrategy fs;
     public GameModel gm;
+
     public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
@@ -245,9 +247,43 @@ public class Tank {
     }
 
     public void fire() {
+        if (Group.BAD.equals(this.group)) {
+            this.fire(new DefaultFireStrategy());
+            String goodFSName = PropertyMgr.getString("badFS");
+            try {
+                fs = (FireStrategy) Class.forName(goodFSName).newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+            this.fire(fs);
+        } else {
+            String goodFSName = PropertyMgr.getString("goodFS");
+            try {
+                fs = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            this.fire(fs);
+        }
+    }
+
+    public void fire(FireStrategy fireStrategy) {
+        fireStrategy.fire(this);
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        gm.bullets.add(new Bullet(bx, by, this.dir, group, gm));
+        gm.bullets.add(new Bullet(bx, by, this.dir, group, this.gm));
     }
 
     public void die() {
