@@ -17,7 +17,7 @@ public class Tank {
     private Random random = new Random();
     public int x, y;
     private Dir dir = Dir.DOWN;
-    private final int SPEED = 5;
+    private final int SPEED = 3;
     private boolean moving = true;
     public TankFrame tf = null;
     private boolean living = true;
