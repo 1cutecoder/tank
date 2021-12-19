@@ -1,6 +1,5 @@
 package tank;
 
-import tank.abstractfactory.BaseBullet;
 
 import java.awt.*;
 
@@ -8,7 +7,7 @@ import java.awt.*;
  * @author zcl
  * @date 2021/12/14 14:37
  */
-public class Bullet extends BaseBullet {
+public class Bullet  {
     private final int SPEED = 10;
     private int x, y;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
@@ -39,7 +38,6 @@ public class Bullet extends BaseBullet {
         this.group = group;
     }
 
-    @Override
     public void paint(Graphics g) {
         if (!living) {
             tf.bullets.remove(this);
@@ -88,7 +86,6 @@ public class Bullet extends BaseBullet {
         rect.y = this.y;
     }
 
-    @Override
     public void collideWith(Tank tank) {
         if (this.group == tank.getGroup()) {
             return;
@@ -99,7 +96,7 @@ public class Bullet extends BaseBullet {
             this.die();
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tf.explodes.add(tf.gf.createExplode(eX, eY, this.tf));
+            tf.explodes.add(new Explode(eX, eY, this.tf));
         }
     }
 

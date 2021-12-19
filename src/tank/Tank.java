@@ -1,6 +1,5 @@
 package tank;
 
-import tank.abstractfactory.BaseTank;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,7 +10,7 @@ import java.util.Random;
  * @author zcl
  * @date 2021/12/14 14:02
  */
-public class Tank extends BaseTank {
+public class Tank {
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     public Rectangle rect = new Rectangle();

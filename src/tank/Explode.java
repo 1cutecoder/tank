@@ -1,6 +1,5 @@
 package tank;
 
-import tank.abstractfactory.BaseExplode;
 
 import java.awt.*;
 import java.util.Random;
@@ -10,7 +9,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  * @author zcl
  * @date 2021/12/14 14:02
  */
-public class Explode extends BaseExplode {
+public class Explode {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
     private int x, y;
@@ -29,7 +28,6 @@ public class Explode extends BaseExplode {
 
     }
 
-    @Override
     public void paint(Graphics g) {
         g.drawImage(ResourceMgr.explodes[step++], x, y, null);
         if (step >= ResourceMgr.explodes.length) {
