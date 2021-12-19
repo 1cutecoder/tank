@@ -7,7 +7,7 @@ import java.awt.*;
  * @author zcl
  * @date 2021/12/14 14:37
  */
-public class Bullet  {
+public class Bullet {
     private final int SPEED = 10;
     private int x, y;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
@@ -15,15 +15,15 @@ public class Bullet  {
     Rectangle rect = new Rectangle();
     private Dir dir;
     private boolean living = true;
-    private TankFrame tf = null;
+    public GameModel gm;
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
@@ -40,7 +40,7 @@ public class Bullet  {
 
     public void paint(Graphics g) {
         if (!living) {
-            tf.bullets.remove(this);
+            gm.bullets.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -96,7 +96,7 @@ public class Bullet  {
             this.die();
             int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
             int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            tf.explodes.add(new Explode(eX, eY, this.tf));
+            gm.explodes.add(new Explode(eX, eY, this.gm));
         }
     }
 

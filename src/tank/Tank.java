@@ -19,16 +19,15 @@ public class Tank {
     private Dir dir = Dir.DOWN;
     private final int SPEED = 3;
     private boolean moving = true;
-    public TankFrame tf = null;
     private boolean living = true;
     public Group group = Group.BAD;
-
-    public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public GameModel gm;
+    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tf = tf;
+        this.gm = gm;
         rect.x = this.x;
         rect.y = this.y;
         rect.width = WIDTH;
@@ -67,8 +66,8 @@ public class Tank {
         this.moving = moving;
     }
 
-    public void setTf(TankFrame tf) {
-        this.tf = tf;
+    public void setGm(GameModel gm) {
+        this.gm = gm;
     }
 
     public void setLiving(boolean living) {
@@ -115,8 +114,8 @@ public class Tank {
         return moving;
     }
 
-    public TankFrame getTf() {
-        return tf;
+    public GameModel getGm() {
+        return gm;
     }
 
     public boolean isLiving() {
@@ -129,7 +128,7 @@ public class Tank {
 
     public void paint(Graphics g) {
         if (!living) {
-            tf.tanks.remove(this);
+            gm.tanks.remove(this);
             return;
         }
         switch (dir) {
@@ -248,7 +247,7 @@ public class Tank {
     public void fire() {
         int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bx, by, this.dir, group, this.tf));
+        gm.bullets.add(new Bullet(bx, by, this.dir, group, gm));
     }
 
     public void die() {
