@@ -1,23 +1,26 @@
-package tank;
+package tank.abstractfactory;
 
-import tank.abstractfactory.BaseExplode;
+import tank.Audio;
+import tank.ResourceMgr;
+import tank.TankFrame;
 
 import java.awt.*;
-import java.util.Random;
-import java.util.concurrent.ThreadPoolExecutor;
 
 /**
+ * 类描述
+ *
  * @author zcl
- * @date 2021/12/14 14:02
+ * @Description TODO
+ * @Date 2021/12/18 15:46
  */
-public class Explode extends BaseExplode {
+public class RectExplode extends BaseExplode {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
     private int x, y;
     private TankFrame tf = null;
     private int step = 0;
 
-    public Explode(int x, int y, TankFrame tf) {
+    public RectExplode(int x, int y, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.tf = tf;
@@ -31,10 +34,14 @@ public class Explode extends BaseExplode {
 
     @Override
     public void paint(Graphics g) {
-        g.drawImage(ResourceMgr.explodes[step++], x, y, null);
-        if (step >= ResourceMgr.explodes.length) {
-            step = 0;
+        //g.drawImage(ResourceMgr.explodes[step++], x, y, null);
+        Color c = g.getColor();
+        g.setColor(Color.RED);
+        g.fillRect(x, y, 10 * step, 10 * step);
+        step++;
+        if (step >= 5) {
             tf.explodes.remove(this);
+            g.setColor(c);
         }
     }
 

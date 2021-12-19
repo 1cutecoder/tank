@@ -1,14 +1,17 @@
-package tank;
+package tank.abstractfactory;
 
-import tank.abstractfactory.BaseBullet;
+import tank.*;
 
 import java.awt.*;
 
 /**
+ * 类描述
+ *
  * @author zcl
- * @date 2021/12/14 14:37
+ * @Description TODO
+ * @Date 2021/12/18 16:03
  */
-public class Bullet extends BaseBullet {
+public class RectBullet extends BaseBullet {
     private final int SPEED = 10;
     private int x, y;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
@@ -16,10 +19,10 @@ public class Bullet extends BaseBullet {
     Rectangle rect = new Rectangle();
     private Dir dir;
     private boolean living = true;
-    private TankFrame tf = null;
+    public TankFrame tf = null;
     private Group group = Group.BAD;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tf) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -44,22 +47,9 @@ public class Bullet extends BaseBullet {
         if (!living) {
             tf.bullets.remove(this);
         }
-        switch (dir) {
-            case LEFT:
-                g.drawImage(ResourceMgr.bulletL, x, y, null);
-                break;
-            case UP:
-                g.drawImage(ResourceMgr.bulletU, x, y, null);
-                break;
-            case RIGHT:
-                g.drawImage(ResourceMgr.bulletR, x, y, null);
-                break;
-            case DOWN:
-                g.drawImage(ResourceMgr.bulletD, x, y, null);
-                break;
-            default:
-                break;
-        }
+        Color c = g.getColor();
+        g.setColor(Color.YELLOW);
+        g.fillRect(x, y, 20, 20);
         move();
     }
 

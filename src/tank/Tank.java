@@ -1,25 +1,29 @@
 package tank;
 
+import tank.abstractfactory.BaseTank;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 /**
  * @author zcl
  * @date 2021/12/14 14:02
  */
-public class Tank {
+public class Tank extends BaseTank {
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     public Rectangle rect = new Rectangle();
     private Random random = new Random();
-    private int x, y;
+    public int x, y;
     private Dir dir = Dir.DOWN;
     private final int SPEED = 5;
     private boolean moving = true;
-    private TankFrame tf = null;
+    public TankFrame tf = null;
     private boolean living = true;
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
+    FireStrategy fs;
 
     public Tank(int x, int y, Dir dir, Group group, TankFrame tf) {
         this.x = x;
@@ -33,12 +37,20 @@ public class Tank {
         rect.height = HEIGHT;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public static void setWIDTH(int WIDTH) {
+        Tank.WIDTH = WIDTH;
     }
 
-    public void setMoving(boolean moving) {
-        this.moving = moving;
+    public static void setHEIGHT(int HEIGHT) {
+        Tank.HEIGHT = HEIGHT;
+    }
+
+    public void setRect(Rectangle rect) {
+        this.rect = rect;
+    }
+
+    public void setRandom(Random random) {
+        this.random = random;
     }
 
     public void setX(int x) {
@@ -53,12 +65,36 @@ public class Tank {
         this.dir = dir;
     }
 
-    public boolean isMoving() {
-        return moving;
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 
-    public Group getGroup() {
-        return group;
+    public void setTf(TankFrame tf) {
+        this.tf = tf;
+    }
+
+    public void setLiving(boolean living) {
+        this.living = living;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public static int getWIDTH() {
+        return WIDTH;
+    }
+
+    public static int getHEIGHT() {
+        return HEIGHT;
+    }
+
+    public Rectangle getRect() {
+        return rect;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 
     public int getX() {
@@ -75,6 +111,22 @@ public class Tank {
 
     public int getSPEED() {
         return SPEED;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public TankFrame getTf() {
+        return tf;
+    }
+
+    public boolean isLiving() {
+        return living;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     public void paint(Graphics g) {
@@ -196,10 +248,40 @@ public class Tank {
     }
 
     public void fire() {
-        resetWidthAndHeight();
-        int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        tf.bullets.add(new Bullet(bx, by, this.dir, group, this.tf));
+        if (Group.BAD.equals(this.group)) {
+            this.fire(new DefaultFireStrategy());
+            String goodFSName = PropertyMgr.getString("badFS");
+            try {
+                fs = (FireStrategy) Class.forName(goodFSName).newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+            this.fire(fs);
+        } else {
+            String goodFSName = PropertyMgr.getString("goodFS");
+            try {
+                fs = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+            this.fire(fs);
+        }
+    }
+
+    public void fire(FireStrategy fireStrategy) {
+        fireStrategy.fire(this);
     }
 
     public void die() {
