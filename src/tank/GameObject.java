@@ -6,7 +6,7 @@ import java.awt.*;
  * 类描述
  *
  * @author zcl
- * @Description TODO
+ * @Description 游戏物体
  * @Date 2021/12/19 13:33
  */
 public abstract class GameObject {

@@ -9,7 +9,7 @@ import tank.Tank;
  * 类描述
  *
  * @author zcl
- * @Description TODO
+ * @Description 子弹和坦克碰撞处理
  * @Date 2021/12/19 20:39
  */
 public class BulletTankCollider implements Collider {
@@ -21,7 +21,7 @@ public class BulletTankCollider implements Collider {
             if (b.group == t.group) {
                 return;
             }
-            //TODO 用一个rect来记录子弹的位置
+            // 用一个rect来记录子弹的位置
             if (b.rect.intersects(t.rect)) {
                 t.die();
                 b.die();
