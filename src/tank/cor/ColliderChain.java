@@ -18,27 +18,6 @@ import java.util.List;
 public class ColliderChain implements Collider {
     private List<Collider> colliders = new LinkedList<>();
 
-    public ColliderChain() {
-        String[] colliderStrs = PropertyMgr.getStrings("colliders");
-        for (int i = 0; i < colliderStrs.length; i++) {
-            try {
-                add((Collider) Class.forName(colliderStrs[i]).getDeclaredConstructor().newInstance());
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
-        int i = 0;
-        int j = 1;
-    }
-
     public void add(Collider c) {
         colliders.add(c);
     }

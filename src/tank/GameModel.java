@@ -20,11 +20,25 @@ public class GameModel {
     Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
     private List<GameObject> objects = new ArrayList<>();
     private ColliderChain chain = new ColliderChain();
+
     public GameModel() {
         int initTankCount = PropertyMgr.getInt("initTankCount");
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
             this.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
+        }
+        //创建责任链的对象
+        String[] colliderStrs = PropertyMgr.getStrings("colliders");
+        for (int i = 0; i <= colliderStrs.length - 1; i++) {
+            try {
+                chain.add((Collider) Class.forName(colliderStrs[i]).newInstance());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
         }
 
     }
@@ -52,7 +66,7 @@ public class GameModel {
             for (int j = i + 1; j < objects.size(); j++) {
                 GameObject o1 = objects.get(i);
                 GameObject o2 = objects.get(j);
-                chain.collide(o1,o2);
+                chain.collide(o1, o2);
             }
         }
     }
