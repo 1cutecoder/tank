@@ -1,4 +1,6 @@
-package tank;
+package strategy;
+
+import tank.Tank;
 
 /**
  * @author zcl

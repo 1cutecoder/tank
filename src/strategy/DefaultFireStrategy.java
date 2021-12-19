@@ -1,10 +1,13 @@
-package tank;
+package strategy;
+
+import tank.Bullet;
+import tank.Tank;
 
 /**
  * 类描述
  *
  * @author zcl
- * @Description TODO
+ * @Description 默认开火策略
  * @Date 2021/12/18 12:38
  */
 public class DefaultFireStrategy implements FireStrategy{
@@ -12,6 +15,6 @@ public class DefaultFireStrategy implements FireStrategy{
     public void fire(Tank t) {
         int bx = t.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = t.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        t.gm.bullets.add(new Bullet(bx, by, t.getDir(), t.group, t.gm));
+        t.gm.add(new Bullet(bx, by, t.dir, t.group, t.gm));
     }
 }

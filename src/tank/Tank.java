@@ -1,6 +1,9 @@
 package tank;
 
 
+import strategy.DefaultFireStrategy;
+import strategy.FireStrategy;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
@@ -10,127 +13,38 @@ import java.util.Random;
  * @author zcl
  * @date 2021/12/14 14:02
  */
-public class Tank {
+public class Tank extends GameObject {
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     public Rectangle rect = new Rectangle();
     private Random random = new Random();
-    public int x, y;
-    private Dir dir = Dir.DOWN;
+    public Dir dir = Dir.DOWN;
     private final int SPEED = 3;
     private boolean moving = true;
     private boolean living = true;
     public Group group = Group.BAD;
     public FireStrategy fs;
     public GameModel gm;
+    public int preX;
+    public int preY;
+
 
     public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         this.dir = dir;
         this.group = group;
         this.gm = gm;
-        rect.x = this.x;
-        rect.y = this.y;
+        rect.x = x;
+        rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
     }
 
-    public static void setWIDTH(int WIDTH) {
-        Tank.WIDTH = WIDTH;
-    }
-
-    public static void setHEIGHT(int HEIGHT) {
-        Tank.HEIGHT = HEIGHT;
-    }
-
-    public void setRect(Rectangle rect) {
-        this.rect = rect;
-    }
-
-    public void setRandom(Random random) {
-        this.random = random;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    public void setDir(Dir dir) {
-        this.dir = dir;
-    }
-
-    public void setMoving(boolean moving) {
-        this.moving = moving;
-    }
-
-    public void setGm(GameModel gm) {
-        this.gm = gm;
-    }
-
-    public void setLiving(boolean living) {
-        this.living = living;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public static int getWIDTH() {
-        return WIDTH;
-    }
-
-    public static int getHEIGHT() {
-        return HEIGHT;
-    }
-
-    public Rectangle getRect() {
-        return rect;
-    }
-
-    public Random getRandom() {
-        return random;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public Dir getDir() {
-        return dir;
-    }
-
-    public int getSPEED() {
-        return SPEED;
-    }
-
-    public boolean isMoving() {
-        return moving;
-    }
-
-    public GameModel getGm() {
-        return gm;
-    }
-
-    public boolean isLiving() {
-        return living;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            gm.tanks.remove(this);
+            gm.remove(this);
             return;
         }
         switch (dir) {
@@ -191,6 +105,8 @@ public class Tank {
         if (!moving) {
             return;
         }
+        preX = x;
+        preY = y;
         switch (dir) {
             case LEFT:
                 x -= SPEED;
@@ -222,8 +138,8 @@ public class Tank {
                 audio.close();
             }, "b").start();
         }
-        rect.x = this.x;
-        rect.y = this.y;
+        rect.x = x;
+        rect.y = y;
     }
 
     private void boundsCheck() {
@@ -249,9 +165,9 @@ public class Tank {
     public void fire() {
         if (Group.BAD.equals(this.group)) {
             this.fire(new DefaultFireStrategy());
-            String goodFSName = PropertyMgr.getString("badFS");
+            String badFSName = PropertyMgr.getString("badFS");
             try {
-                fs = (FireStrategy) Class.forName(goodFSName).newInstance();
+                fs = (FireStrategy) Class.forName(badFSName).newInstance();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {
@@ -281,12 +197,29 @@ public class Tank {
 
     public void fire(FireStrategy fireStrategy) {
         fireStrategy.fire(this);
-        int bx = this.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
-        int by = this.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        gm.bullets.add(new Bullet(bx, by, this.dir, group, this.gm));
+        int bx = x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
+        int by = y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
+        gm.add(new Bullet(bx, by, this.dir, group, this.gm));
     }
 
     public void die() {
         this.living = false;
     }
+
+    public void setDir(Dir dir) {
+        this.dir = dir;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public void stop() {
+        moving = false;
+    }
+
 }

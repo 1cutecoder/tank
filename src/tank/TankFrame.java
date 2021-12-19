@@ -59,26 +59,12 @@ public class TankFrame extends Frame {
         gm.paint(g);
         Color c = g.getColor();
         g.setColor(Color.WHITE);
-        g.drawString("子弹的数量：" + gm.bullets.size(), 10, 60);
-        g.drawString("敌人的数量：" + gm.tanks.size(), 10, 80);
-        g.drawString("爆炸的数量：" + gm.explodes.size(), 10, 100);
+//        g.drawString("子弹的数量：" + gm.bullets.size(), 10, 60);
+//        g.drawString("敌人的数量：" + gm.tanks.size(), 10, 80);
+//        g.drawString("爆炸的数量：" + gm.explodes.size(), 10, 100);
         g.setColor(c);
         gm.myTank.paint(g);
-        for (int i = 0; i < gm.bullets.size(); i++) {
-            gm.bullets.get(i).paint(g);
-        }
-        for (int i = 0; i < gm.tanks.size(); i++) {
-            gm.tanks.get(i).paint(g);
-        }
-        for (int i = 0; i < gm.bullets.size(); i++) {
-            for (int j = 0; j < gm.tanks.size(); j++) {
-                gm.bullets.get(i).collideWith(gm.tanks.get(j));
 
-            }
-        }
-        for (int i = 0; i < gm.explodes.size(); i++) {
-            gm.explodes.get(i).paint(g);
-        }
     }
 
     class MyKeyListener extends KeyAdapter {

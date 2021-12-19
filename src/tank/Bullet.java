@@ -7,20 +7,19 @@ import java.awt.*;
  * @author zcl
  * @date 2021/12/14 14:37
  */
-public class Bullet {
+public class Bullet extends GameObject{
     private final int SPEED = 10;
-    private int x, y;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
-    Rectangle rect = new Rectangle();
-    private Dir dir;
+    public Rectangle rect = new Rectangle();
+    public Dir dir;
     private boolean living = true;
     public GameModel gm;
-    private Group group = Group.BAD;
+    public Group group = Group.BAD;
 
     public Bullet(int x, int y, Dir dir, Group group, GameModel gm) {
-        this.x = x;
-        this.y = y;
+        super.x = x;
+        super.y = y;
         this.dir = dir;
         this.group = group;
         this.gm = gm;
@@ -29,18 +28,10 @@ public class Bullet {
         rect.width = WIDTH;
         rect.height = HEIGHT;
     }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
+    @Override
     public void paint(Graphics g) {
         if (!living) {
-            gm.bullets.remove(this);
+            gm.remove(this);
         }
         switch (dir) {
             case LEFT:
@@ -82,25 +73,12 @@ public class Bullet {
             living = false;
         }
         //update rect
-        rect.x = this.x;
-        rect.y = this.y;
+        rect.x = super.x;
+        rect.y = super.y;
     }
 
-    public void collideWith(Tank tank) {
-        if (this.group == tank.getGroup()) {
-            return;
-        }
-        //TODO 用一个rect来记录子弹的位置
-        if (rect.intersects(tank.rect)) {
-            tank.die();
-            this.die();
-            int eX = tank.getX() + Tank.WIDTH / 2 - Explode.WIDTH / 2;
-            int eY = tank.getY() + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-            gm.explodes.add(new Explode(eX, eY, this.gm));
-        }
-    }
 
-    private void die() {
+    public void die() {
         this.living = false;
     }
 }
