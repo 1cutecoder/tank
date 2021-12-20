@@ -37,6 +37,9 @@ public class Tank extends GameObject {
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        if (Group.GOOD.equals(group)) {
+            moving = false;
+        }
     }
 
     @Override
@@ -62,6 +65,16 @@ public class Tank extends GameObject {
                 break;
         }
         move();
+    }
+
+    @Override
+    public int getWidth() {
+        return WIDTH;
+    }
+
+    @Override
+    public int getHeight() {
+        return HEIGHT;
     }
 
     public void resetWidthAndHeight() {
@@ -166,11 +179,7 @@ public class Tank extends GameObject {
             String badFSName = PropertyMgr.getString("badFS");
             try {
                 fs = (FireStrategy) Class.forName(badFSName).newInstance();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
+            } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
             this.fire(fs);
@@ -178,15 +187,7 @@ public class Tank extends GameObject {
             String goodFSName = PropertyMgr.getString("goodFS");
             try {
                 fs = (FireStrategy) Class.forName(goodFSName).getDeclaredConstructor().newInstance();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
+            } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
             this.fire(fs);

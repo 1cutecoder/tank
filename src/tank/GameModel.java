@@ -22,7 +22,13 @@ public class GameModel {
     private ColliderChain chain = new ColliderChain();
     private volatile static   GameModel INSTANCE;
 
+    {
+        init();
+    }
     private GameModel() {
+
+    }
+    private void init(){
         int initTankCount = PropertyMgr.getInt("initTankCount");
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
@@ -46,7 +52,6 @@ public class GameModel {
         add(new Wall(550,150,200,50));
         add(new Wall(300,300,50,200));
         add(new Wall(550,300,50,200));
-
     }
 
     public static GameModel getInstance(){
