@@ -50,10 +50,12 @@ public class GameModel {
     }
 
     public static GameModel getInstance(){
-        if (INSTANCE == null) synchronized (GameModel.class) {
-            if (INSTANCE == null) {
-                synchronized (GameModel.class) {
-                    INSTANCE = new GameModel();
+        if (INSTANCE == null) {
+            synchronized (GameModel.class) {
+                if (INSTANCE == null) {
+                    synchronized (GameModel.class) {
+                        INSTANCE = new GameModel();
+                    }
                 }
             }
         }
