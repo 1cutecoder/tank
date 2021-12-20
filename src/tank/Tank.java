@@ -24,17 +24,15 @@ public class Tank extends GameObject {
     private boolean living = true;
     public Group group = Group.BAD;
     public FireStrategy fs;
-    public GameModel gm;
     public int preX;
     public int preY;
 
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gm) {
+    public Tank(int x, int y, Dir dir, Group group) {
         super.x = x;
         super.y = y;
         this.dir = dir;
         this.group = group;
-        this.gm = gm;
         rect.x = x;
         rect.y = y;
         rect.width = WIDTH;
@@ -44,7 +42,7 @@ public class Tank extends GameObject {
     @Override
     public void paint(Graphics g) {
         if (!living) {
-            gm.remove(this);
+            GameModel.getInstance().remove(this);
             return;
         }
         switch (dir) {
@@ -199,7 +197,7 @@ public class Tank extends GameObject {
         fireStrategy.fire(this);
         int bx = x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        gm.add(new Bullet(bx, by, this.dir, group, this.gm));
+        GameModel.getInstance().add(new Bullet(bx, by, this.dir, group));
     }
 
     public void back() {

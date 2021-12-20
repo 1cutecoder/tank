@@ -1,6 +1,7 @@
 package strategy;
 
 import tank.Bullet;
+import tank.GameModel;
 import tank.Tank;
 
 /**
@@ -15,6 +16,6 @@ public class DefaultFireStrategy implements FireStrategy{
     public void fire(Tank t) {
         int bx = t.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = t.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
-        t.gm.add(new Bullet(bx, by, t.dir, t.group, t.gm));
+        GameModel.getInstance().add(new Bullet(bx, by, t.dir, t.group));
     }
 }

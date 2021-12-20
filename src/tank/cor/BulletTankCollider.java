@@ -1,9 +1,6 @@
 package tank.cor;
 
-import tank.Bullet;
-import tank.Explode;
-import tank.GameObject;
-import tank.Tank;
+import tank.*;
 
 /**
  * 类描述
@@ -27,7 +24,7 @@ public class BulletTankCollider implements Collider {
                 b.die();
                 int eX = t.x + Tank.WIDTH / 2 - Explode.WIDTH / 2;
                 int eY = t.y + Tank.HEIGHT / 2 - Explode.HEIGHT / 2;
-                b.gm.add(new Explode(eX, eY, b.gm));
+                GameModel.getInstance().add(new Explode(eX, eY));
             }
             return true;
         } else if (o2 instanceof Bullet && o1 instanceof Tank){

@@ -14,7 +14,6 @@ import java.util.List;
  * @date 2021/12/13 14:13
  */
 public class TankFrame extends Frame {
-    public GameModel gm = new GameModel();
 
     public static final int GAME_WIDTH = 1280, GAME_HEIGHT = 720;
 
@@ -56,14 +55,14 @@ public class TankFrame extends Frame {
 
     @Override
     public void paint(Graphics g) {
-        gm.paint(g);
+        GameModel.getInstance().paint(g);
         Color c = g.getColor();
         g.setColor(Color.WHITE);
 //        g.drawString("子弹的数量：" + gm.bullets.size(), 10, 60);
 //        g.drawString("敌人的数量：" + gm.tanks.size(), 10, 80);
 //        g.drawString("爆炸的数量：" + gm.explodes.size(), 10, 100);
         g.setColor(c);
-        gm.myTank.paint(g);
+        GameModel.getInstance().myTank.paint(g);
 
     }
 
@@ -112,7 +111,7 @@ public class TankFrame extends Frame {
                     bD = false;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    gm.myTank.fire();
+                    GameModel.getInstance().myTank.fire();
                     break;
                 default:
                     break;
@@ -121,7 +120,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            Tank myTank = gm.getMainTank();
+            Tank myTank =  GameModel.getInstance().getMainTank();
             if (!bL && !bu && !bR && !bD) {
                 myTank.setMoving(false);
             } else {

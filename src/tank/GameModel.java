@@ -17,15 +17,16 @@ import java.util.List;
  * @Date 2021/12/19 12:44
  */
 public class GameModel {
-    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD, this);
+    Tank myTank = new Tank(200, 400, Dir.DOWN, Group.GOOD);
     private List<GameObject> objects = new ArrayList<>();
     private ColliderChain chain = new ColliderChain();
+    private volatile static   GameModel INSTANCE;
 
-    public GameModel() {
+    private GameModel() {
         int initTankCount = PropertyMgr.getInt("initTankCount");
         //初始化敌方坦克
         for (int i = 0; i < initTankCount; i++) {
-            this.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD, this));
+            this.add(new Tank(50 + i * 80, 200, Dir.DOWN, Group.BAD));
         }
         //创建责任链的对象
         String[] colliderStrs = PropertyMgr.getStrings("colliders");
@@ -46,6 +47,17 @@ public class GameModel {
         add(new Wall(300,300,50,200));
         add(new Wall(550,300,50,200));
 
+    }
+
+    public static GameModel getInstance(){
+        if (INSTANCE == null) synchronized (GameModel.class) {
+            if (INSTANCE == null) {
+                synchronized (GameModel.class) {
+                    INSTANCE = new GameModel();
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     public void add(GameObject go) {

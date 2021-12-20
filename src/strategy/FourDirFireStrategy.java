@@ -2,6 +2,7 @@ package strategy;
 
 import tank.Bullet;
 import tank.Dir;
+import tank.GameModel;
 import tank.Tank;
 
 /**
@@ -17,7 +18,7 @@ public class FourDirFireStrategy  implements FireStrategy{
         int bx = t.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
         int by = t.y + Tank.HEIGHT / 2 - Bullet.HEIGHT / 2;
         for (Dir dir : Dir.values()) {
-            t.gm.add(new Bullet(bx, by, dir, t.group, t.gm));
+            GameModel.getInstance().add(new Bullet(bx, by, dir, t.group));
         }
     }
 }
