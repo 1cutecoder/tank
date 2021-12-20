@@ -18,10 +18,8 @@ public class TankTankCollider implements Collider {
             Tank t2 = (Tank) o2;
             if (Group.BAD.equals(t1.group) && Group.BAD.equals(t2.group)) {
                 if (t1.rect.intersects(t2.rect)) {
-                    t1.x = t1.preX;
-                    t1.y = t1.preY;
-                    t2.x = t2.preX;
-                    t2.y = t2.preY;
+                    t1.back();
+                    t2.back();
                 }
             }
         }

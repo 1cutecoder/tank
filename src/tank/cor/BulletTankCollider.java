@@ -19,7 +19,7 @@ public class BulletTankCollider implements Collider {
             Bullet b = (Bullet)o1;
             Tank t = (Tank)o2;
             if (b.group == t.group) {
-                return true;
+                return false;
             }
             // 用一个rect来记录子弹的位置
             if (b.rect.intersects(t.rect)) {
@@ -32,14 +32,7 @@ public class BulletTankCollider implements Collider {
             return true;
         } else if (o2 instanceof Bullet && o1 instanceof Tank){
             collide(o2,o1);
-            return true;
-        } else {
-            return false;
         }
-
-    }
-
-    public void collideWith(Tank tank) {
-
+        return false;
     }
 }

@@ -202,6 +202,11 @@ public class Tank extends GameObject {
         gm.add(new Bullet(bx, by, this.dir, group, this.gm));
     }
 
+    public void back() {
+        x = preX;
+        y = preY;
+    }
+
     public void die() {
         this.living = false;
     }
