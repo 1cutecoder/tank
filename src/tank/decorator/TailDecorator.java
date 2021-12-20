@@ -8,9 +8,9 @@ import java.awt.*;
  * @author zcl
  * @date 2021/12/20 17:26
  */
-public class RetDecorator extends GODecorator{
+public class TailDecorator extends GODecorator {
 
-    public RetDecorator(GameObject go) {
+    public TailDecorator(GameObject go) {
         super(go);
     }
 
@@ -19,7 +19,8 @@ public class RetDecorator extends GODecorator{
         go.paint(g);
         Color c = g.getColor();
         g.setColor(Color.YELLOW);
-        g.drawRect(go.x,go.y,getWidth(),getHeight());
+        g.drawRect(go.x, go.y, getWidth(), getHeight());
+        g.drawLine(go.x, go.y, go.x + getWidth(), go.y + getHeight());
         g.setColor(c);
     }
 
