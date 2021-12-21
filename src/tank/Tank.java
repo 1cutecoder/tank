@@ -3,10 +3,16 @@ package tank;
 
 import strategy.DefaultFireStrategy;
 import strategy.FireStrategy;
+import tank.observer.TankFireEvent;
+import tank.observer.TankFireHandler;
+import tank.observer.TankFireObserver;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -226,4 +232,11 @@ public class Tank extends GameObject {
         moving = false;
     }
 
+    private List<TankFireObserver> observers = Arrays.asList(new TankFireHandler());
+    public void handleFire() {
+        TankFireEvent event = new TankFireEvent(this);
+        for (TankFireObserver observer : observers) {
+            observer.actionOnFire(event);
+        }
+    }
 }
