@@ -10,6 +10,7 @@ public class TankFireHandler extends TankFireObserver{
     @Override
     public void actionOnFire(TankFireEvent e) {
         Tank tank = e.getSource();
-        System.out.println("tank = " + tank);
+        tank.fire();
+        System.out.println("actionOnFire called ");
     }
 }
