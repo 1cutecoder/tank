@@ -7,7 +7,7 @@ import java.awt.*;
  * @author zcl
  * @date 2021/12/14 14:37
  */
-public class Bullet extends GameObject{
+public class Bullet extends GameObject {
     private final int SPEED = 10;
     public static int WIDTH = ResourceMgr.bulletD.getWidth();
     public static int HEIGHT = ResourceMgr.bulletD.getHeight();
@@ -26,6 +26,7 @@ public class Bullet extends GameObject{
         rect.width = WIDTH;
         rect.height = HEIGHT;
     }
+
     @Override
     public void paint(Graphics g) {
         if (!living) {

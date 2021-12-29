@@ -7,7 +7,7 @@ import java.awt.*;
  * @author zcl
  * @date 2021/12/14 14:02
  */
-public class Explode extends GameObject{
+public class Explode extends GameObject {
     public static int WIDTH = ResourceMgr.explodes[0].getWidth();
     public static int HEIGHT = ResourceMgr.explodes[0].getHeight();
     private int step = 0;

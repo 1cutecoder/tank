@@ -36,6 +36,7 @@ public class PropertyMgr {
         }
         return (String) props.get(key);
     }
+
     public static String[] getStrings(String key) {
         if (props == null) {
             return null;
@@ -43,6 +44,7 @@ public class PropertyMgr {
         String strings = (String) props.get(key);
         return strings.split(",");
     }
+
     public static int getInt(String key) {
         if (props == null) {
             throw new NullPointerException();

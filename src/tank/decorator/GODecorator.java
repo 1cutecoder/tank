@@ -12,7 +12,7 @@ public abstract class GODecorator extends GameObject {
 
     GameObject go;
 
-    public GODecorator(GameObject go) {
+    protected GODecorator(GameObject go) {
         this.go = go;
     }
 

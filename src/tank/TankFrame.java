@@ -120,7 +120,7 @@ public class TankFrame extends Frame {
         }
 
         private void setMainTankDir() {
-            Tank myTank =  GameModel.getInstance().getMainTank();
+            Tank myTank = GameModel.getInstance().getMainTank();
             if (!bL && !bu && !bR && !bD) {
                 myTank.setMoving(false);
             } else {
