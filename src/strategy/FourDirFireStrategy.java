@@ -5,6 +5,8 @@ import tank.Dir;
 import tank.GameModel;
 import tank.Tank;
 
+import java.io.Serializable;
+
 /**
  * 类描述
  *
@@ -12,7 +14,7 @@ import tank.Tank;
  * @Description 四个方向打子弹
  * @Date 2021/12/18 14:27
  */
-public class FourDirFireStrategy  implements FireStrategy{
+public class FourDirFireStrategy  implements FireStrategy, Serializable {
     @Override
     public void fire(Tank t) {
         int bx = t.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;

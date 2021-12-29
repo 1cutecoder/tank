@@ -13,7 +13,7 @@ import java.util.Random;
  * @author zcl
  * @date 2021/12/14 14:02
  */
-public class Tank extends GameObject {
+public class Tank extends GameObject  {
     public static int WIDTH = ResourceMgr.goodTankU.getWidth();
     public static int HEIGHT = ResourceMgr.goodTankU.getHeight();
     public Rectangle rect = new Rectangle();
@@ -23,7 +23,7 @@ public class Tank extends GameObject {
     private boolean moving = true;
     private boolean living = true;
     public Group group = Group.BAD;
-    public FireStrategy fs;
+    public  FireStrategy fs;
     public int preX;
     public int preY;
 

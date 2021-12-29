@@ -7,6 +7,8 @@ import tank.decorator.GODecorator;
 import tank.decorator.RetDecorator;
 import tank.decorator.TailDecorator;
 
+import java.io.Serializable;
+
 /**
  * 类描述
  *
@@ -14,7 +16,7 @@ import tank.decorator.TailDecorator;
  * @Description 默认开火策略
  * @Date 2021/12/18 12:38
  */
-public class DefaultFireStrategy implements FireStrategy{
+public class DefaultFireStrategy implements FireStrategy, Serializable {
     @Override
     public void fire(Tank t) {
         int bx = t.x + Tank.WIDTH / 2 - Bullet.WIDTH / 2;
